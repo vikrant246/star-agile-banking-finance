@@ -28,12 +28,12 @@ pipeline {
         }
       stage('printing_testcase_report'){
           steps {
-               publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/health_care/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+               publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/banking_job/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
                  }
             }
      stage('docker_image_building'){
         steps {
-           sh 'docker build -t vikrant246/helthimg:59 .'
+           sh 'docker build -t vikrant246/bankimg:1.0 .'
               }
          }
     stage('dockerhub_login'){
