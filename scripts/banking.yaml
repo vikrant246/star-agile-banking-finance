@@ -3,7 +3,7 @@
   become: true
   tasks:
     - name: setting hostname
-	  command: sudo hostnamectl set-hostname docker-server
+      command: sudo hostnamectl set-hostname docker-server
     - name: Install dependencies
       apt:
         name: "{{ item }}"
@@ -14,12 +14,10 @@
         - curl
         - gnupg
         - lsb-release
-
     - name: Add Docker GPG key
       apt_key:
         url: https://download.docker.com/linux/ubuntu/gpg
         state: present
-
     - name: Add Docker repository
       apt_repository:
         repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_distribution_release }} stable
@@ -28,7 +26,6 @@
       apt:
         name: docker-ce
         state: present
-
     - name: Start Docker service
       service:
         name: docker
