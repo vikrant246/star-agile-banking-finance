@@ -27,10 +27,12 @@
     - name: Install Docker
       apt:
         name: docker-ce
-		 state: present
+        state: present
 
     - name: Start Docker service
       service:
         name: docker
         state: started
         enabled: true
+    - name: Deploy Docker Container
+      command: docker run -itd -p 8084:8081 vikrant246/bankimg:1.0
