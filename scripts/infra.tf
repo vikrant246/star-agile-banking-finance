@@ -26,6 +26,6 @@ resource "aws_instance" "my_kube_server" {
         command = " echo ${aws_instance.my_kube_server.public_ip} > inventory "
   }
   provisioner "local-exec" {
-  command = "ansible-playbook /var/lib/jenkins/workspace/banking_job/scripts/banking.yml "
+  command = "ansible-playbook /var/lib/jenkins/workspace/banking_job/scripts/banking.yaml "
   } 
 }
