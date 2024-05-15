@@ -1,1 +1,65 @@
+pipeline {
+    agent any
 
+    stages {
+        stage('cloning_git_repo') {
+            steps {
+                echo 'cloning git repo'
+                git 'https://github.com/vikrant246/star-agile-banking-finance.git'
+            }
+        }
+        stage('code_compile') {
+            steps {
+                echo 'maven code copmpilation'
+                sh 'mvn compile'
+            }
+        }
+        stage('cleaning_code') {
+            steps {
+                echo 'packageing the mavan code'
+                sh 'mvn clean'
+            }
+        }
+	stage('packageing_code') {
+            steps {
+                echo 'deploying the mavan code'
+                sh 'mvn package'
+            }
+        }
+      stage('printing_testcase_report'){
+          steps {
+               publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '/var/lib/jenkins/workspace/health_care/target/surefire-reports', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: '', useWrapperFileDirectly: true])
+                 }
+            }
+     stage('docker_image_building'){
+        steps {
+           sh 'docker build -t vikrant246/helthimg:59 .'
+              }
+         }
+    stage('dockerhub_login'){
+       steps {
+          echo 'logging to dockerhub'
+          withCredentials([usernamePassword(credentialsId: 'Dcoker_login_credential', passwordVariable: 'Dockerpass', usernameVariable: 'Dockeruser')]) {
+          sh 'docker login -u${Dockeruser} -p${Dockerpass}'
+                                              }
+             }
+        }
+    stage('pushing_image_to_dockerhub'){
+       steps {
+          sh 'docker push vikrant246/helthimg:59'
+              }
+         }
+   stage('Create Infrastructure using terraform') {
+      steps {
+            dir('scripts') {
+            sh 'sudo chmod 600 medicure.pem'
+            withCredentials([aws(accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'jenkins_iam_user', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+            sh 'terraform init'
+            sh 'terraform validate'
+            sh 'terraform apply --auto-approve'
+                          }
+            }
+        }
+      }
+   }
+}
