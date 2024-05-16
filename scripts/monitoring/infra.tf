@@ -26,6 +26,6 @@ resource "aws_instance" "my_monitoring_server" {
         command = " echo ${aws_instance.my_monitoring_server.public_ip} > inventory "
   }
   provisioner "local-exec" {
-  command = "ansible-playbook /var/lib/jenkins/workspace/monitoring_job/scripts/banking.yaml "
+  command = "ansible-playbook /var/lib/jenkins/workspace/banking_job/scripts/monitoring/monitoring.yaml "
   } 
 }
