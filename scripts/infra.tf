@@ -5,7 +5,7 @@ provider "aws" {
 
 resource "aws_instance" "my_kube_server" {
   ami           = "ami-05e00961530ae1b55"
-  instance_type = "t2.large"
+  instance_type = "t2.micro"
   key_name      = "medicure"
 
   # Use the default security group
