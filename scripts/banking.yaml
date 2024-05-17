@@ -39,6 +39,6 @@
     - name: runnining node exporter1
       shell: sudo tar xvfz node_exporter-*.*-amd64.tar.gz
     - name: running node exporter2
-      shell: cd node_exporter-*.*-amd64
+      shell: cd /home/ubuntu/node_exporter-1.8.0.linux-amd64
     - name: runing node exporter
-      command: ./node_exporter
+      shell: ./node_exporter
