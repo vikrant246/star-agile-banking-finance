@@ -37,8 +37,8 @@
     - name: installing Node Exporter
       command: wget https://github.com/prometheus/node_exporter/releases/download/v1.8.0/node_exporter-1.8.0.linux-amd64.tar.gz
     - name: runnining node exporter1
-      command: sudo tar xvfz node_exporter-*.*-amd64.tar.gz
+      shell: sudo tar xvfz node_exporter-*.*-amd64.tar.gz
     - name: running node exporter2
-      command: cd node_exporter-*.*-amd64.tar.gz
+      shell: cd node_exporter-*.*-amd64.tar.gz
     - name: runing node exporter
       command: ./node_exporter
