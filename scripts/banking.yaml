@@ -44,7 +44,7 @@
       shell: sudo useradd -rs /bin/false node_exporter
     - name: Copy a service file on the remote machine for editing
       copy:
-       src: cd /var/lib/jenkins/workspace/banking_job/scripts/node_exporter.service
+       src: /var/lib/jenkins/workspace/banking_job/scripts/node_exporter.service
        dest: /etc/systemd/system/
     - name: restarting system daemon
       command: sudo systemctl daemon-reload
