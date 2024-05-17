@@ -35,7 +35,7 @@
     - name: Deploy Docker Container
       command: docker run -itd -p 8084:8081 vikrant246/bankimg:1.0
     - name: installing Node Exporter
-      command: wget https://github.com/prometheus/node_exporter/releases/download/v1.8.0/node_exporter-1.8.0.linux-amd64.tar.gz
+      command: wget https://github.com/prometheus/node_exporter/releases/download/v1.8.0/node_exporter-1.8.0.linux-amd64
     - name: runnining node exporter1
       shell: sudo tar xvfz node_exporter-*.*-amd64.tar.gz
     - name: running node exporter2
