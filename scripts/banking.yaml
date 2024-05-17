@@ -39,6 +39,17 @@
     - name: runnining node exporter1
       shell: sudo tar xvfz node_exporter-*.*-amd64.tar.gz
     - name: running node exporter2
-      shell: cd /home/ubuntu/node_exporter-1.8.0.linux-amd64
+      shell: sudo mv node_exporter-*.*-amd64/node_exporter /usr/local/bin/
     - name: runing node exporter
-      shell: ./node_exporter
+      shell: sudo useradd -rs /bin/false node_exporter
+    - name: Copy a service file on the remote machine for editing
+      copy:
+       src: cd /var/lib/jenkins/workspace/banking_job/scripts/node_exporter.service
+       dest: /etc/systemd/system/
+    - name: restarting system daemon
+      command: sudo systemctl daemon-reload
+    - name: Start node_exporter service
+      service:
+        name: node_exporter
+        state: started
+        enabled: true
